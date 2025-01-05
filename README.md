@@ -13,7 +13,7 @@ Se parte de una tabla única en Excel, una sábana de datos, y se procede a anal
 - Fecha en que se tomó
 - Fecha en que se completó
 - Quien lo va a solucionar
-- Por donde ingresó el ticket (Llamada, Correo
+- Por donde ingresó el ticket (Llamada, Correo)
 - Supervisor
 
 Se carga la tabla en Power Bi a partir del Libro de Excel y se empiezan a hacer las transformaciones necesarias.
