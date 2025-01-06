@@ -36,15 +36,71 @@ Para ello, estando en Power Query, se hacen varios duplicados de la tabla, y se 
 
 Por cada tabla se remueven los duplicados.
 
-## Tabla Calendario
-Cuando nos manejamos con fechas, en forma predefinida, Power BI crea una jerarquía de fechas (año, trimestre, mes, día) por tener activada la opción de inteligencia de tiempo.
+### Tabla Calendario
+Cuando nos manejamos con fechas, en forma predefinida, Power BI crea un calendario automático, es decir genera una jerarquía de fechas (año, trimestre, mes, día) a partir de las fechas del modelo. Esto pasa por tener activada la opción de inteligencia de tiempo.
 
+Estas tablas que se generan en forma automática no son la mejor opción para el modelo, ya que suelen provocar mas problemas que soluciones.
 
-## Tabla Tiempo
-Una buena práctica si nos vamos a manejar con tiempos es tener una tabla tiempo bien completa, en este caso la generamos a partir de un código M ya establecido. De esta manera voy a tener cada hora, minuto y segundo por día.
+>[!tip]
+>**Buena práctica: desactivar el calendario automático y generar una tabla calendario con todas las columnas que necesite el modelo.**
+
+En este caso generamos el calendario a partir de código DAX en Power BI, desde Nueva Tabla y la marcamos como **Tabla de Fechas**.
+
+![image](https://github.com/user-attachments/assets/78bc5101-0cba-478b-b157-7fb1b513d7aa)
+
+### Tabla Tiempo
+
+>[!tip]
+>**Buena práctica: generamos una tabla de tiempos bien completa.**
+
+Generamos la tabla de tiempos a partir de un código M ya establecido. De esta manera voy a tener cada hora, minuto y segundo por día.
 
 ![image](https://github.com/user-attachments/assets/1ee19ca9-7aa7-4933-96af-f1f41be8b2e0)
 
+El **Modelo Relacional** resultante, una vez conectadas todas la tablas es el siguiente:
+
+![image](https://github.com/user-attachments/assets/cc20d2ab-7e64-49e0-8646-31610e045af5)
+
+
+## Creación de Medidas
+
+>[!tip]
+>**Buena práctica: generamos una tabla de medidas para guardar todas las medidas en ella**
+
+Medida que calcula cantidad de tickets --> utilizo **COUNTROWS**
+
+```JS
+00.Q Tickets (Creados) = COUNTROWS('00_Tickets')
+```
+En el caso de las tablas ***Calendario*** y ***Tiempo*** vemos que hay 3 relaciones por cada una, esto es porque el modelo maneja 3 tipos de fechas: 
+- fecha de creación del ticket
+- fecha en la que se tomó el ticket
+- fecha en la que se completó el ticket.
+  
+Pero se observa que sólo una de ellas está activa, la de creación, las restantes están con líneas punteadas (inactivas)
+
+![image](https://github.com/user-attachments/assets/f0c35350-8f60-4d7a-bb86-48ffdab6c4de)
+
+Puedo crear mas de una relación con un campo, pero sólo 1 de las relaciones va a ser la activa.
+
+Para calcular la cantidad de Tickets Tomados, debo activar una relación inactiva --> lo hago con **USERELATIONSHIP**, y activo la relación de tickets tomados con la tabla calendario.
+
+```JS
+01.Q Tickets (Tomados) =
+    CALCULATE(COUNTROWS('00_Tickets'),
+    USERELATIONSHIP('00_Tickets'[PICKED_DATE], '10_Calendar DAX'[Date]))
+```
+Y hago lo mismo para los Tickets Cerrados
+
+```JS
+02.Q Tickets (Cerrados) =
+    CALCULATE(COUNTROWS('00_Tickets'),
+    USERELATIONSHIP('00_Tickets'[COMPLETED_DATE], '10_Calendar DAX'[Date]))
+```
+
+Debo seguir el mismo procedimiento para vincular la **Tabla de Tiempos** con los 3 tipos de tickets, ya que una única relación va a ser la activa (tickets creados).
+
+### Slicer Tipo de Ticket 
 
 
 
@@ -56,19 +112,11 @@ Una buena práctica si nos vamos a manejar con tiempos es tener una tabla tiempo
 
 
 
-![image](https://github.com/user-attachments/assets/963dd0d4-57c9-49ee-999d-f89fb3d72564)
 
 
-![image](https://github.com/user-attachments/assets/0f03ba45-aa03-426f-8f9e-7cbfa1cefd50)
 
 
-![image](https://github.com/user-attachments/assets/abccf2a5-89f3-4298-80c2-78a6fa6efe1e)
 
-
-![image](https://github.com/user-attachments/assets/98ea0f15-2e95-49b3-b960-3892acb5e7b1)
-
-
-![image](https://github.com/user-attachments/assets/bec5f76e-2915-4fe7-836d-b2e3b0d96532)
 
 
 
