@@ -146,6 +146,10 @@ SWITCH(TRUE(),
 
 ## Lienzo Supervisores
 
+En este lienzo se muestran las estadísticas de los 3 supervisores, por tickets creados, tomados y cerrados.
+
+![image](https://github.com/user-attachments/assets/725e4185-9995-436f-b8e4-891ba1a83ce9)
+
 
 
 
