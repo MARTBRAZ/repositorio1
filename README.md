@@ -53,6 +53,7 @@ En este caso generamos el calendario a partir de código DAX en Power BI, desde 
 >[!tip]
 >**Buena práctica: generamos una tabla de tiempos bien completa.**
 
+
 Generamos la tabla de tiempos a partir de un código M ya establecido. De esta manera voy a tener cada hora, minuto y segundo por día.
 
 ![image](https://github.com/user-attachments/assets/1ee19ca9-7aa7-4933-96af-f1f41be8b2e0)
@@ -66,6 +67,7 @@ El **Modelo Relacional** resultante, una vez conectadas todas la tablas es el si
 
 >[!tip]
 >**Buena práctica: generamos una tabla de medidas para guardar todas las medidas en ella**
+
 
 Medida que calcula cantidad de tickets --> utilizo **COUNTROWS**
 
@@ -101,6 +103,56 @@ Y hago lo mismo para los Tickets Cerrados
 Debo seguir el mismo procedimiento para vincular la **Tabla de Tiempos** con los 3 tipos de tickets, ya que una única relación va a ser la activa (tickets creados).
 
 ### Slicer Tipo de Ticket 
+
+Nuestro reporte va a tener un slicer para poder seleccionar entre **Tickets Creados**, **Tickets Tomados** y **Tickets Cerrados**.
+
+Para ello creo una tabla **"Tipo de Ticket"**
+
+![image](https://github.com/user-attachments/assets/d53f2939-c47e-4ca5-93ec-bb9921043515)
+
+Se debe crear medida para que tome los datos de acuerdo a la selección.
+
+Primero creo la Variable **S** para que almacene el tipo de dato seleccionado con **SELECTEDVALUE**.
+
+Luego con **SWITCH** indico que medida tomar de acuerdo a la variable seleccionada.
+
+```js
+05. Q Tickets Seleccionados (Fechas) =
+
+Var S = SELECTEDVALUE('11_Tipo de Ticket'[ID Tipo],1)
+
+RETURN
+SWITCH(TRUE(),
+    S = 1, [00.Q Tickets (Creados)],
+    S = 2, [01.Q Tickets (Tomados)],
+    S = 3, [02.Q Tickets (Cerrados)]
+)
+```
+
+Hago lo mismo con Tiempo:
+
+```js
+06. Q Tickets Seleccionados (Tiempo) =
+ 
+Var S = SELECTEDVALUE('11_Tipo de Ticket'[ID Tipo],1)
+  
+RETURN
+SWITCH(TRUE(),
+    S = 1, [00.Q Tickets (Creados)],
+    S = 2, [03.Q Tickets (Tomados Tiempo)],
+    S = 3, [04.Q Tickets (Cerrados Tiempo)]
+)
+```
+
+## Lienzo Supervisores
+
+
+
+
+
+
+
+
 
 
 
