@@ -143,21 +143,75 @@ SWITCH(TRUE(),
     S = 3, [04.Q Tickets (Cerrados Tiempo)]
 )
 ```
-
+___
 ## Lienzo Supervisores
 
-En este lienzo se muestran las estadísticas de los 3 supervisores, por tickets creados, tomados y cerrados.
+En este lienzo se muestran las estadísticas de los 3 supervisores, por tickets creados, en progreso y cerrados.
+
+Para el reporte se necesitan las medidas que explicitamente me muestren los datos de cada supervisor.
+
+**Medida para Aurora:**
+
+Utilizo un CALCULATE sobre la medida de Tickets seleccionados previamente creada.
+
+```js
+08.Aurora Tickets =
+    CALCULATE('11_Tipo de Ticket'[05. Q Tickets Seleccionados (Fechas)],
+    '00_Tickets'[SUPERVISOR] = "Aurora Krammer")
+```
+Y hago lo mismo para Heather y para Jack.
+
+Los visuales por supervisor quedan de la siguiente manera, mostrándose:
+* las calificaciones de los tickets de cada uno (Excellent, Good, Satisfactory, Unsatisfactory)
+* la prioridad (High, Medium, Low)
+* Cantidad de tickets por día de la semana
+
+![image](https://github.com/user-attachments/assets/6eb21455-89a3-494e-adbe-f61b814e9527)
+
+De esta manera, gracias al slicer por estado del ticket y la medida por supervisor, puedo ver el desempeño de cada uno de manera muy visual
 
 ![image](https://github.com/user-attachments/assets/725e4185-9995-436f-b8e4-891ba1a83ce9)
 
+___
+## Lienzo Fechas
+
+En este lienzo se muestra:
+* la cantidad de tickets por semana del mes (Semana 1, Semana 2, Semana 3, Semana 4) --> utilizo el campo Semana Texto de la Tabla Calendario y la medida **Q Tickets Seleccionados (Fechas)**
+* la cantidad de tickets por rango horario (12AM a 6AM, 6AM a 12PM, 12PM a 6PM, 6PM a 12AM) --> utilizo el campo Hourly Quartile de la Tabla Tiempo y la medida **Q Tickets Seleccionados (Fechas)**
+
+El lienzo resultante es el siguiente:
+
+![image](https://github.com/user-attachments/assets/21d015c8-0a9f-44a2-b627-6ba55fed76d9)
+
+___
+## Lienzo Empleados
+
+En este lienzo puedo ver los empleados asignados a cada supervisor en una matriz, pudiendo seleccionar al supervisor por medio de un slicer.
+
+También puedo visualizar, de acuerdo a la selección (creados, en progreso o cerrados):
+* cantidad de tickets por día
+* cantidad de tickets según su clasificación en Excellent, Good y Satisfactory
+* cantidad de tickets según su prioridad(low, medium, high)
+* cantidad de ticket por via (portal, call, mail)
+
+La medida seleccionada para los distintos visuales sera la de **Q Tickets Seleccionados (Fechas)**
+
+![image](https://github.com/user-attachments/assets/189a4e01-b056-491f-acaf-3af2f609f5e2)
 
 
 
 
 
+___
+## Lienzo Localización
+
+En este reporte se responde a la pregunta **¿DONDE?**
 
 
 
+
+___
+## Lienzo Empresa
 
 
 
