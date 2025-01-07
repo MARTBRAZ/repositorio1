@@ -146,7 +146,9 @@ SWITCH(TRUE(),
 ___
 ## Lienzo Supervisores
 
-En este lienzo se muestran las estadísticas de los 3 supervisores, por tickets creados, en progreso y cerrados.
+En este lienzo se responde a la pregunta **¿QUIEN?**
+
+Se muestran las estadísticas de los 3 supervisores, por tickets creados, en progreso y cerrados.
 
 Para el reporte se necesitan las medidas que explicitamente me muestren los datos de cada supervisor.
 
@@ -170,23 +172,27 @@ Los visuales por supervisor quedan de la siguiente manera, mostrándose:
 
 De esta manera, gracias al slicer por estado del ticket y la medida por supervisor, puedo ver el desempeño de cada uno de manera muy visual
 
-![image](https://github.com/user-attachments/assets/725e4185-9995-436f-b8e4-891ba1a83ce9)
+![image](https://github.com/user-attachments/assets/c58efe47-cad9-429b-981c-283c1d40d63b)
 
 ___
 ## Lienzo Fechas
 
-En este lienzo se muestra:
+En este reporte se responde a la pregunta **¿CUANDO?**
+
+Se puede visualizar:
 * la cantidad de tickets por semana del mes (Semana 1, Semana 2, Semana 3, Semana 4) --> utilizo el campo Semana Texto de la Tabla Calendario y la medida **Q Tickets Seleccionados (Fechas)**
 * la cantidad de tickets por rango horario (12AM a 6AM, 6AM a 12PM, 12PM a 6PM, 6PM a 12AM) --> utilizo el campo Hourly Quartile de la Tabla Tiempo y la medida **Q Tickets Seleccionados (Fechas)**
 
 El lienzo resultante es el siguiente:
 
-![image](https://github.com/user-attachments/assets/21d015c8-0a9f-44a2-b627-6ba55fed76d9)
+![image](https://github.com/user-attachments/assets/343267f2-db32-4550-9fd3-2a55425112b9)
 
 ___
 ## Lienzo Empleados
 
-En este lienzo puedo ver los empleados asignados a cada supervisor en una matriz, pudiendo seleccionar al supervisor por medio de un slicer.
+En este reporte se responde a la pregunta **¿COMO?**
+
+Se pueden ver los empleados asignados a cada supervisor en una matriz, pudiendo seleccionar al supervisor por medio de un slicer.
 
 También puedo visualizar, de acuerdo a la selección (creados, en progreso o cerrados):
 * cantidad de tickets por día
@@ -196,30 +202,68 @@ También puedo visualizar, de acuerdo a la selección (creados, en progreso o ce
 
 La medida seleccionada para los distintos visuales sera la de **Q Tickets Seleccionados (Fechas)**
 
-![image](https://github.com/user-attachments/assets/189a4e01-b056-491f-acaf-3af2f609f5e2)
-
-
-
-
+![image](https://github.com/user-attachments/assets/1e010a29-b6cc-4cf3-b211-818fe368f80d)
 
 ___
 ## Lienzo Localización
 
-En este reporte se responde a la pregunta **¿DONDE?**
+En este lienzo se responde a la pregunta **¿DONDE?**
 
+A través de los datos de los Estados y su latitud y longitud se pueden ubicar en el mapa en forma precisa. 
 
+Utilizando la medida **Q Tickets Seleccionados (Fechas)** para el tamaño de la burbuja puedo ver donde se hay mayor cantidad de tickets creados, en progreso o completados.
 
+Luego a través de un Esquema Jerárquico muestro el desglose de los tickets por Provincia y Estado.
+
+![image](https://github.com/user-attachments/assets/e4cdd63c-bc47-4f07-bd70-63ba3750e626)
 
 ___
 ## Lienzo Empresa
 
+En este reporte se responde a la pregunta **¿QUE?**
 
+Para los visuales de este lienzo se vuelve a utilizar la medida **Q Tickets Seleccionados (Fechas)**.
 
+En el primer gráfico de barras se visualiza la cantidad de tickets por departamento(IT, Legal, Marketing, etc).
 
+En el gráfico de abajo se muestra la cantidad de tickets por categoría (Ciber Consultation, Data Leak, Security Gap, etc).
 
+En el último gráfico de barras se muestran los tickets por subcategoría (Phishing, Firewall, Obsolete Software, Malware Attack, etc)
 
+![image](https://github.com/user-attachments/assets/1ef67dc0-139e-463b-93da-50b0ee948ea6)
 
+___
+## Botones para cada página
 
+Para hacer mas interactivo el reporte agrego los botones para dirigirme a cada lienzo.
+
+Pasos:
+* 1 - Inserto botón sobre el logo de cada página
+* 2 - Tildo Acción
+* 3 - Tipo: Navegación de Páginas
+* 4 - Selecciono la página a la cual me debe remitir
+
+![image](https://github.com/user-attachments/assets/ae114a39-aee1-4d8e-8e0b-f6d9d5326b07)
+
+## Menú desplegable
+
+Por último, agrego un menú desplegable que me permite seleccionar el año y mes que quiero filtrar en cada lienzo.
+
+Pasos:
+* 1 - Inserto una forma rectangular
+* 2 - Inserto los Slicers que necesito
+* 3 - Inserto título
+* 4 - Inserto flecha atrás
+
+![image](https://github.com/user-attachments/assets/9d4a31af-a88a-4b05-834e-c4feb6b5d035)
+
+Luego para empezar a dinamizarlo
+
+* 5 - Activo Menú Selección
+* 6 - Selecciono todos los ítems agregados y los agrupo
+* 7 - Habilito Menú Marcadores y creo Marcador para "Menu Abierto" y para "Menu Cerrado"
+
+![image](https://github.com/user-attachments/assets/cb002818-a597-43b9-8b9b-315d7a7abadb)
 
 
 
